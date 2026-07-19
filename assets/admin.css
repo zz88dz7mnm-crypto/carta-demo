@@ -833,10 +833,6 @@
     flex-direction: column;
     gap: 0.85rem;
     padding: 0.35rem 0 0.85rem;
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background: var(--adm-page-bg);
   }
 
   .admin-header h1 {
@@ -871,24 +867,29 @@
     gap: 0.85rem;
   }
 
-  /* Sidebar becomes a horizontally-scrolling chip strip that sticks under the
-     header instead of a cramped 2-column button grid — easier to scan and
-     tap with a thumb on a phone. */
+  /* Sidebar becomes a horizontally-scrolling chip strip that sticks to the
+     top of the viewport instead of a cramped 2-column button grid — easier
+     to scan and tap with a thumb on a phone. It's the only sticky element
+     now (the header used to be sticky too, with a guessed offset that
+     didn't match every page's header height and clipped the top of these
+     chips). No backdrop-filter here: blurring a sticky element while the
+     long Platos/Sin-gluten lists scroll underneath it caused the lag. */
   .admin-sidebar {
     position: sticky;
-    top: 4.6rem;
+    top: 0;
     z-index: 15;
     display: flex;
     flex-wrap: nowrap;
     grid-template-columns: none;
     gap: 0.5rem;
     margin: 0 -0.75rem;
-    padding: 0.5rem 0.75rem;
+    padding: 0.6rem 0.75rem;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    background: var(--adm-page-bg);
+    background: var(--paper);
+    box-shadow: 0 0.4rem 0.6rem -0.4rem rgb(21 20 18 / 15%);
   }
 
   .admin-sidebar::-webkit-scrollbar {
@@ -958,6 +959,29 @@
 
   .admin-search__results {
     max-height: 60vh;
+  }
+
+  /* On Platos/Sin gluten, sub-group headers ("Para compartir", "Burgers",
+     "Milanesas"...) are just a single field inside their own .admin-section,
+     so they inherited the same boxed card look as everything else and
+     showed up as odd little disconnected squares breaking the list.
+     De-box them into a plain label bar. */
+  .admin-section:has(> .admin-field:only-child) {
+    margin: 0.2rem 0 -0.35rem;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .admin-section:has(> .admin-field:only-child) .admin-field label {
+    color: var(--gold);
+    font-size: 0.72rem;
+  }
+
+  .admin-section:has(> .admin-field:only-child) .admin-field input {
+    padding: 0.6rem 0.8rem;
+    font-weight: 780;
   }
 
   .admin-toast {
