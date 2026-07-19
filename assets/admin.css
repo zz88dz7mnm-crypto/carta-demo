@@ -823,36 +823,129 @@
 }
 
 @media (max-width: 760px) {
-  .admin-header,
+  .admin-shell {
+    width: 100%;
+    padding: 0.75rem 0.75rem 2.5rem;
+  }
+
+  .admin-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 0.35rem 0 0.85rem;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--adm-page-bg);
+  }
+
+  .admin-header h1 {
+    font-size: 1.85rem;
+  }
+
+  .admin-actions {
+    justify-content: stretch;
+    gap: 0.6rem;
+  }
+
+  .admin-actions .admin-button {
+    flex: 1 1 auto;
+    min-height: 2.9rem;
+  }
+
   .admin-section-head,
   .admin-card-head,
   .admin-category-head,
   .admin-item-head {
     align-items: stretch;
     flex-direction: column;
+    gap: 0.6rem;
   }
 
-  .admin-actions,
   .admin-row-actions {
     justify-content: flex-start;
   }
 
   .admin-layout {
     grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
 
+  /* Sidebar becomes a horizontally-scrolling chip strip that sticks under the
+     header instead of a cramped 2-column button grid — easier to scan and
+     tap with a thumb on a phone. */
   .admin-sidebar {
-    position: static;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    position: sticky;
+    top: 4.6rem;
+    z-index: 15;
+    display: flex;
+    flex-wrap: nowrap;
+    grid-template-columns: none;
+    gap: 0.5rem;
+    margin: 0 -0.75rem;
+    padding: 0.5rem 0.75rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: var(--adm-page-bg);
+  }
+
+  .admin-sidebar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-nav {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 2.75rem;
   }
 
   .admin-nav-group {
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
+    grid-column: auto;
+    grid-template-columns: none;
+    gap: 0.5rem;
+    padding-top: 0;
+  }
+
+  .admin-nav-label {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding-left: 0.3rem;
   }
 
   .admin-grid {
     grid-template-columns: 1fr;
+  }
+
+  .admin-item {
+    margin-left: 0;
+  }
+
+  /* Bigger touch targets: 44px is the minimum comfortable tap size. */
+  .admin-icon-button {
+    min-width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .admin-drag-handle {
+    width: 2.5rem;
+    min-width: 2.5rem;
+    height: 2.75rem;
+  }
+
+  .admin-button {
+    min-height: 2.75rem;
+  }
+
+  .admin-field input,
+  .admin-field textarea,
+  .admin-login__card input {
+    padding: 0.95rem;
+    font-size: 1rem;
   }
 
   .admin-search__result {
@@ -861,5 +954,34 @@
 
   .admin-search__result span {
     grid-row: auto;
+  }
+
+  .admin-search__results {
+    max-height: 60vh;
+  }
+
+  .admin-toast {
+    top: max(0.75rem, env(safe-area-inset-top));
+    width: min(calc(100% - 1.5rem), 20rem);
+  }
+
+  .admin-modal {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .admin-modal__card {
+    width: 100%;
+    max-height: min(92dvh, 100dvh - 1.5rem);
+    border-radius: 1.5rem 1.5rem 0 0;
+    padding: 1.15rem 1.15rem calc(1.15rem + env(safe-area-inset-bottom));
+  }
+
+  .admin-modal__actions {
+    flex-direction: column;
+  }
+
+  .admin-modal__actions .admin-button {
+    width: 100%;
   }
 }
