@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Carta digital de Levels Bar con comida, cocteles y reservas por WhatsApp."
+    />
+    <meta property="og:title" content="Levels Bar | Carta digital" />
+    <meta
+      property="og:description"
+      content="Comida, cocteles y reservas por WhatsApp en Cordoba."
+    />
+    <meta property="og:image" content="assets/portadas/levels-bar.jpg" />
+    <title>Levels Bar | Carta digital</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="hero" id="inicio">
+        <img
+          class="hero__photo"
+          src="assets/portadas/levels-bar.jpg"
+          alt="Cocteles de Levels Bar sobre una barra"
+        />
+        <div class="hero__shade"></div>
+
+        <div class="hero__content">
+          <span class="brand-mark">
+            <img src="assets/brand/levels-mark-white.png" alt="Levels Bar" />
+          </span>
+          <p class="eyebrow">Carta digital</p>
+          <h1>Levels Bar</h1>
+          <div class="hero__actions">
+            <a
+              class="btn btn--whatsapp"
+              href="https://wa.me/5493511234567?text=Hola%2C%20quiero%20hacer%20una%20reserva"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm5.83 14.16c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.09.11-1.76-.11-.4-.13-.93-.3-1.6-.6-2.8-1.21-4.63-4.03-4.77-4.21-.14-.19-1.14-1.52-1.14-2.9 0-1.38.72-2.06.98-2.34.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.61-.07.16-.19.7-.81.89-1.09.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36Z"
+                />
+              </svg>
+              Reservar
+            </a>
+            <a class="btn btn--ghost" href="#carta">Ver carta</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-picker" aria-label="Secciones de la carta" id="carta">
+        <div class="section-picker__grid">
+          <a class="section-card" href="platos.html">
+            <img src="assets/portadas/secciones/platos.jpg" alt="" />
+            <span>Platos</span>
+          </a>
+          <a class="section-card" href="bebidas.html">
+            <img src="assets/portadas/secciones/bebidas-premium.jpg" alt="" />
+            <span>Bebidas</span>
+          </a>
+          <a class="section-card" href="sin-gluten.html">
+            <img src="assets/portadas/sin-gluten.jpg" alt="" />
+            <span>Sin gluten</span>
+          </a>
+          <a class="section-card" href="postres.html">
+            <img src="assets/portadas/secciones/postres.jpg" alt="" />
+            <span>Postres</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="reservas" aria-labelledby="reservas-title">
+        <h2 id="reservas-title">Reservas</h2>
+        <p>Coordinamos las reservas por WhatsApp. Escribinos y te confirmamos el horario en minutos.</p>
+        <a
+          class="btn btn--whatsapp"
+          href="https://wa.me/5493511234567?text=Hola%2C%20quiero%20reservar%20una%20mesa%20en%20Levels%20Bar"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Zm5.83 14.16c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.09.11-1.76-.11-.4-.13-.93-.3-1.6-.6-2.8-1.21-4.63-4.03-4.77-4.21-.14-.19-1.14-1.52-1.14-2.9 0-1.38.72-2.06.98-2.34.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.71 1.17 1.52 1.9 1.05.94 1.93 1.23 2.21 1.37.28.14.44.12.61-.07.16-.19.7-.81.89-1.09.19-.28.37-.23.62-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.36Z"
+            />
+          </svg>
+          Reservar por WhatsApp
+        </a>
+      </section>
+
+      <section class="conocenos" aria-labelledby="conocenos-title">
+        <h2 id="conocenos-title">Conócenos un poco más</h2>
+
+        <div class="conocenos__block">
+          <p class="conocenos__label">Nuestro Instagram</p>
+          <a
+            class="btn btn--dark"
+            href="https://www.instagram.com/levels.bar/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8" />
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8" />
+              <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" />
+            </svg>
+            Instagram
+          </a>
+        </div>
+
+        <div class="conocenos__block">
+          <p class="conocenos__label">Nuestra ubicación</p>
+          <p class="conocenos__address">Dr. T. Achaval Rodriguez 249, Córdoba</p>
+          <div class="map">
+            <iframe
+              src="https://www.google.com/maps?q=Dr.+T.+Achaval+Rodriguez+249%2C+C%C3%B3rdoba&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ubicación de Levels Bar"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div>
+          <img src="assets/brand/levels-mark-white.png" alt="Levels Bar" />
+          <p><strong>Vie y Sab 18:00 a 03:00</strong></p>
+          <p>Dom a Jue 18:00 a 00:00</p>
+          <a
+            href="https://maps.google.com/?q=Dr.+T.+Achaval+Rodriguez+249%2C+C%C3%B3rdoba"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Dr. T. Achaval Rodriguez 249, Cordoba
+          </a>
+        </div>
+      </footer>
+    </main>
+      <script src="assets/menu-data.js"></script>
+    <script src="assets/menu-renderer.js"></script>
+  </body>
+</html>

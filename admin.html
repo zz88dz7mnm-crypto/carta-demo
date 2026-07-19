@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Admin carta | Levels Bar</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="assets/admin.css" />
+  </head>
+  <body class="admin-body">
+    <section class="admin-login" id="admin-login">
+      <form class="admin-login__card" id="admin-login-form">
+        <img class="admin-login__mark" src="assets/brand/levels-mark-black.png" alt="Levels Bar" />
+        <p class="admin-kicker">Levels Bar</p>
+        <h1>Administración</h1>
+        <label>
+          Usuario
+          <input id="admin-user" type="text" autocomplete="username" />
+        </label>
+        <label>
+          Clave
+          <input id="admin-pass" type="password" autocomplete="current-password" />
+        </label>
+        <p class="admin-login__error" id="admin-login-error" hidden>Usuario o clave incorrectos.</p>
+        <button class="admin-button" type="submit">Entrar</button>
+      </form>
+    </section>
+
+    <section class="admin-login" id="admin-password-gate" hidden>
+      <form class="admin-login__card" id="admin-password-form">
+        <img class="admin-login__mark" src="assets/brand/levels-mark-black.png" alt="Levels Bar" />
+        <p class="admin-kicker">Levels Bar</p>
+        <h1>Cambiá tu clave</h1>
+        <p class="admin-login__hint">Es tu primer ingreso: elegí una clave nueva de al menos 10 caracteres antes de seguir.</p>
+        <label>
+          Clave actual
+          <input id="admin-current-pass" type="password" autocomplete="current-password" />
+        </label>
+        <label>
+          Clave nueva
+          <input id="admin-new-pass" type="password" autocomplete="new-password" />
+        </label>
+        <p class="admin-login__error" id="admin-password-error" hidden></p>
+        <button class="admin-button" type="submit">Guardar clave nueva</button>
+      </form>
+    </section>
+
+    <main class="admin-shell" id="admin-app" hidden>
+      <header class="admin-header">
+        <div>
+          <p class="admin-kicker">Levels Bar</p>
+          <h1>Editor de carta</h1>
+        </div>
+        <div class="admin-actions">
+          <button class="admin-button admin-button--ghost" type="button" data-action="open-settings">Configuración</button>
+          <button class="admin-button admin-button--ghost" type="button" data-action="logout">Cerrar sesión</button>
+        </div>
+      </header>
+
+      <section class="admin-note">
+        <span>Los cambios se guardan en la base de datos y se aplican al instante en las páginas abiertas de esta misma web.</span>
+      </section>
+
+      <div class="admin-toast" id="save-state" aria-live="polite">Listo</div>
+
+      <section class="admin-search" aria-label="Buscar productos">
+        <div class="admin-search__box">
+          <span aria-hidden="true">⌕</span>
+          <input id="admin-search" type="search" autocomplete="off" placeholder="Buscar producto, seccion o precio..." />
+        </div>
+        <div class="admin-search__results" id="admin-search-results" hidden></div>
+      </section>
+
+      <div class="admin-layout">
+        <aside class="admin-sidebar" aria-label="Secciones editables">
+          <button class="admin-nav is-active" type="button" data-target="cards">Menu principal</button>
+          <button class="admin-nav" type="button" data-target="beverageCards">Bebidas</button>
+          <div class="admin-nav-group" id="page-nav"></div>
+        </aside>
+
+        <section class="admin-panel" id="editor" aria-label="Editor"></section>
+      </div>
+    </main>
+
+    <div class="admin-modal" id="admin-settings" hidden>
+      <div class="admin-modal__backdrop" data-action="close-settings"></div>
+      <div class="admin-modal__card" role="dialog" aria-modal="true" aria-labelledby="admin-settings-title">
+        <div class="admin-modal__head">
+          <h2 id="admin-settings-title">Configuración</h2>
+          <button class="admin-modal__close" type="button" data-action="close-settings" aria-label="Cerrar">✕</button>
+        </div>
+
+        <section class="admin-modal__section">
+          <h3>Usuario</h3>
+          <form id="admin-username-form">
+            <div class="admin-grid admin-grid--single">
+              <div class="admin-field">
+                <label for="admin-new-username">Nuevo usuario</label>
+                <input id="admin-new-username" type="text" autocomplete="username" />
+              </div>
+              <div class="admin-field">
+                <label for="admin-username-current-pass">Clave actual (para confirmar)</label>
+                <input id="admin-username-current-pass" type="password" autocomplete="current-password" />
+              </div>
+            </div>
+            <p class="admin-login__error" id="admin-username-error" hidden></p>
+            <button class="admin-button" type="submit">Guardar usuario</button>
+          </form>
+        </section>
+
+        <section class="admin-modal__section">
+          <h3>Contraseña</h3>
+          <form id="admin-password-form-modal">
+            <div class="admin-grid admin-grid--single">
+              <div class="admin-field">
+                <label for="admin-modal-current-pass">Clave actual</label>
+                <input id="admin-modal-current-pass" type="password" autocomplete="current-password" />
+              </div>
+              <div class="admin-field">
+                <label for="admin-modal-new-pass">Clave nueva</label>
+                <input id="admin-modal-new-pass" type="password" autocomplete="new-password" />
+              </div>
+            </div>
+            <p class="admin-login__error" id="admin-password-modal-error" hidden></p>
+            <button class="admin-button" type="submit">Guardar clave</button>
+          </form>
+        </section>
+      </div>
+    </div>
+
+    <script src="assets/menu-data.js"></script>
+    <script src="assets/admin.js"></script>
+  </body>
+</html>
