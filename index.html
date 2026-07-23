@@ -47,7 +47,7 @@
               </svg>
               Reservar
             </a>
-            <a class="btn btn--ghost" href="#carta">Ver carta</a>
+            <button class="btn btn--ghost" onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})">Ver carta</button>
           </div>
         </div>
       </section>
@@ -140,7 +140,11 @@
         </div>
       </footer>
     </main>
-      <script src="assets/menu-data.js"></script>
+      <script>
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, 0);
+    </script>
+    <script src="assets/menu-data.js"></script>
     <script src="assets/menu-renderer.js"></script>
   </body>
 </html>
