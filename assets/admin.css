@@ -434,6 +434,10 @@
   gap: 0.75rem;
 }
 
+.admin-section > .admin-section-head {
+  margin-bottom: 1.1rem;
+}
+
 .admin-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -854,12 +858,13 @@
     display: none;
   }
 
-  /* Hamburger button */
+  /* Hamburger button — goes to the LEFT, title to the right */
   .admin-hamburger {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex: 0 0 auto;
+    order: -1;
     width: 2.75rem;
     height: 2.75rem;
     border: 0;
@@ -868,6 +873,10 @@
     background: var(--adm-surface-2);
     box-shadow: inset 0 0 0 1px var(--adm-border);
     cursor: pointer;
+  }
+
+  .admin-header > div:first-child {
+    text-align: right;
   }
 
   /* Backdrop */
@@ -1038,7 +1047,7 @@
   }
 
   .admin-section:has(> .admin-field:only-child) {
-    margin: 0.2rem 0 -0.35rem;
+    margin: 0.5rem 0 0.1rem;
     padding: 0;
     background: none;
     box-shadow: none;
