@@ -370,8 +370,57 @@
 .admin-sidebar {
   position: sticky;
   top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.42rem;
+}
+
+.admin-sidebar__nav {
   display: grid;
   gap: 0.42rem;
+}
+
+/* Footer with Configuración + Cerrar sesión — hidden on desktop */
+.admin-sidebar__footer {
+  display: none;
+}
+
+/* Mobile drawer toggle — hidden on desktop */
+.admin-mobile-toggle {
+  display: none;
+}
+
+/* Mobile overlay — always in DOM but invisible */
+.admin-drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  background: rgb(0 0 0 / 0%);
+  transition: background 300ms ease;
+}
+
+.admin-drawer-open .admin-drawer-overlay {
+  background: rgb(0 0 0 / 46%);
+}
+
+.admin-nav--action {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+}
+
+.admin-nav--action svg {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.admin-nav--danger:hover {
+  background: #9d3328 !important;
+  color: white !important;
 }
 
 .admin-nav-group {
@@ -829,24 +878,194 @@
   }
 
   .admin-header {
-    align-items: stretch;
-    flex-direction: column;
-    gap: 0.85rem;
     padding: 0.35rem 0 0.85rem;
+    padding-left: 3.25rem; /* room for the hamburger */
   }
 
   .admin-header h1 {
     font-size: 1.85rem;
   }
 
+  /* Header actions (Configuración / Cerrar sesión) move into the drawer */
   .admin-actions {
-    justify-content: stretch;
-    gap: 0.6rem;
+    display: none;
   }
 
-  .admin-actions .admin-button {
-    flex: 1 1 auto;
-    min-height: 2.9rem;
+  /* ── Mobile hamburger toggle ──────────────────────────────── */
+  .admin-mobile-toggle {
+    display: flex;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: none;
+    border-radius: 50%;
+    background: rgb(18 17 15 / 82%);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 28%);
+    cursor: pointer;
+    transition: background 180ms ease, transform 180ms ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .admin-mobile-toggle:hover {
+    background: rgb(18 17 15 / 95%);
+  }
+
+  .admin-mobile-toggle:active {
+    transform: scale(0.94);
+  }
+
+  .admin-mobile-toggle__icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 18px;
+  }
+
+  .admin-mobile-toggle__icon span {
+    display: block;
+    height: 2px;
+    border-radius: 2px;
+    background: white;
+    transition: transform 300ms ease, opacity 300ms ease, width 300ms ease;
+    transform-origin: center;
+  }
+
+  .admin-mobile-toggle__icon span:nth-child(3) {
+    width: 12px;
+  }
+
+  .admin-drawer-open .admin-mobile-toggle__icon span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .admin-drawer-open .admin-mobile-toggle__icon span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .admin-drawer-open .admin-mobile-toggle__icon span:nth-child(3) {
+    width: 18px;
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* ── Drawer overlay ───────────────────────────────────────── */
+  .admin-drawer-overlay {
+    display: block;
+    pointer-events: none;
+  }
+
+  .admin-drawer-open .admin-drawer-overlay {
+    pointer-events: auto;
+  }
+
+  /* ── Sidebar as left drawer ───────────────────────────────── */
+  .admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    width: min(280px, 82vw);
+    height: 100dvh;
+    padding: 0;
+    background: #12110f;
+    color: white;
+    transform: translateX(-100%);
+    transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    gap: 0;
+    box-shadow: none;
+  }
+
+  .admin-drawer-open .admin-sidebar {
+    transform: translateX(0);
+    box-shadow: 0.5rem 0 3rem rgb(0 0 0 / 32%);
+  }
+
+  .admin-sidebar__nav {
+    padding: 1.25rem 0.75rem 0.5rem;
+    flex: 1;
+    overflow-y: auto;
+    gap: 0;
+  }
+
+  /* Drawer header label */
+  .admin-sidebar__nav::before {
+    content: "Secciones";
+    display: block;
+    padding: 0 0.5rem 0.6rem;
+    color: rgb(255 255 255 / 42%);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  /* ── Nav buttons inside drawer ───────────────────────────── */
+  .admin-nav {
+    min-height: 2.75rem;
+    border-radius: 0.65rem;
+    padding: 0.7rem 0.75rem;
+    white-space: nowrap;
+    color: rgb(255 255 255 / 88%);
+    background: transparent;
+    box-shadow: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 160ms ease, color 160ms ease;
+    width: 100%;
+  }
+
+  .admin-nav:hover {
+    color: white;
+    background: rgb(255 255 255 / 8%) !important;
+    box-shadow: none !important;
+  }
+
+  .admin-nav.is-active {
+    color: white;
+    background: rgb(255 255 255 / 12%) !important;
+    box-shadow: none !important;
+  }
+
+  .admin-nav-group {
+    display: grid;
+    gap: 0.25rem;
+    padding-top: 0.5rem;
+    grid-template-columns: none;
+    flex-wrap: unset;
+  }
+
+  .admin-nav-label {
+    display: flex;
+    align-items: center;
+    margin: 0.65rem 0 0.12rem;
+    color: rgb(255 255 255 / 38%);
+    padding-left: 0.5rem;
+  }
+
+  /* ── Drawer footer: Configuración + Cerrar sesión ─────────── */
+  .admin-sidebar__footer {
+    display: grid;
+    gap: 0.25rem;
+    padding: 0.75rem;
+    border-top: 1px solid rgb(255 255 255 / 10%);
+  }
+
+  .admin-nav--action {
+    justify-content: flex-start;
+  }
+
+  /* ── Layout: sidebar out of flow on mobile ────────────────── */
+  .admin-layout {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
   }
 
   .admin-section-head,
@@ -862,62 +1081,6 @@
     justify-content: flex-start;
   }
 
-  .admin-layout {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-  }
-
-  /* Sidebar becomes a horizontally-scrolling chip strip that sticks to the
-     top of the viewport instead of a cramped 2-column button grid — easier
-     to scan and tap with a thumb on a phone. It's the only sticky element
-     now (the header used to be sticky too, with a guessed offset that
-     didn't match every page's header height and clipped the top of these
-     chips). No backdrop-filter here: blurring a sticky element while the
-     long Platos/Sin-gluten lists scroll underneath it caused the lag. */
-  .admin-sidebar {
-    position: sticky;
-    top: 0;
-    z-index: 15;
-    display: flex;
-    flex-wrap: nowrap;
-    grid-template-columns: none;
-    gap: 0.5rem;
-    margin: 0 -0.75rem;
-    padding: 0.6rem 0.75rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    background: var(--paper);
-    box-shadow: 0 0.4rem 0.6rem -0.4rem rgb(21 20 18 / 15%);
-  }
-
-  .admin-sidebar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .admin-nav {
-    flex: 0 0 auto;
-    white-space: nowrap;
-    min-height: 2.75rem;
-  }
-
-  .admin-nav-group {
-    display: flex;
-    flex-wrap: nowrap;
-    grid-column: auto;
-    grid-template-columns: none;
-    gap: 0.5rem;
-    padding-top: 0;
-  }
-
-  .admin-nav-label {
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding-left: 0.3rem;
-  }
-
   .admin-grid {
     grid-template-columns: 1fr;
   }
@@ -926,7 +1089,6 @@
     margin-left: 0;
   }
 
-  /* Bigger touch targets: 44px is the minimum comfortable tap size. */
   .admin-icon-button {
     min-width: 2.75rem;
     height: 2.75rem;
@@ -961,11 +1123,6 @@
     max-height: 60vh;
   }
 
-  /* On Platos/Sin gluten, sub-group headers ("Para compartir", "Burgers",
-     "Milanesas"...) are just a single field inside their own .admin-section,
-     so they inherited the same boxed card look as everything else and
-     showed up as odd little disconnected squares breaking the list.
-     De-box them into a plain label bar. */
   .admin-section:has(> .admin-field:only-child) {
     margin: 0.2rem 0 -0.35rem;
     padding: 0;
