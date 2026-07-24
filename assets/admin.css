@@ -835,6 +835,12 @@
 }
 
 @media (max-width: 760px) {
+  /* Prevent any element from overflowing the viewport width,
+     which would trigger iOS Safari to zoom out the entire page. */
+  .admin-body {
+    overflow-x: hidden;
+  }
+
   .admin-shell {
     width: 100%;
     padding: 0.75rem 0.75rem 2.5rem;
