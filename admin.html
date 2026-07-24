@@ -53,6 +53,11 @@
           <p class="admin-kicker">Levels Bar</p>
           <h1>Editor de carta</h1>
         </div>
+        <button class="admin-hamburger" id="admin-hamburger" type="button" aria-label="Abrir menú" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" width="22" height="22">
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </button>
         <div class="admin-actions">
           <button class="admin-button admin-button--ghost" type="button" data-action="open-settings">Configuración</button>
           <button class="admin-button admin-button--ghost" type="button" data-action="logout">Cerrar sesión</button>
@@ -74,11 +79,20 @@
       </section>
 
       <div class="admin-layout">
-        <aside class="admin-sidebar" aria-label="Secciones editables">
+        <aside class="admin-sidebar" id="admin-sidebar" aria-label="Secciones editables">
+          <div class="admin-sidebar-header">
+            <span class="admin-sidebar-title">Navegación</span>
+            <button class="admin-sidebar-close" id="admin-sidebar-close" type="button" aria-label="Cerrar menú">✕</button>
+          </div>
           <button class="admin-nav is-active" type="button" data-target="cards">Menu principal</button>
           <button class="admin-nav" type="button" data-target="beverageCards">Bebidas</button>
           <div class="admin-nav-group" id="page-nav"></div>
+          <div class="admin-nav-mobile-footer">
+            <button class="admin-nav" type="button" data-action="open-settings">Configuración</button>
+            <button class="admin-nav admin-nav--logout" type="button" data-action="logout">Cerrar sesión</button>
+          </div>
         </aside>
+        <div class="admin-backdrop" id="admin-backdrop"></div>
 
         <section class="admin-panel" id="editor" aria-label="Editor"></section>
       </div>
@@ -132,5 +146,35 @@
 
     <script src="assets/menu-data.js"></script>
     <script src="assets/admin.js"></script>
+    <script>
+      (function () {
+        var hamburger = document.getElementById('admin-hamburger');
+        var sidebar = document.getElementById('admin-sidebar');
+        var backdrop = document.getElementById('admin-backdrop');
+        var closeBtn = document.getElementById('admin-sidebar-close');
+
+        function openMenu() {
+          sidebar.classList.add('is-open');
+          backdrop.classList.add('is-open');
+          hamburger.setAttribute('aria-expanded', 'true');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenu() {
+          sidebar.classList.remove('is-open');
+          backdrop.classList.remove('is-open');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
+        }
+
+        hamburger && hamburger.addEventListener('click', openMenu);
+        backdrop && backdrop.addEventListener('click', closeMenu);
+        closeBtn && closeBtn.addEventListener('click', closeMenu);
+
+        sidebar && sidebar.addEventListener('click', function (e) {
+          if (e.target.matches('.admin-nav')) closeMenu();
+        });
+      })();
+    </script>
   </body>
 </html>
