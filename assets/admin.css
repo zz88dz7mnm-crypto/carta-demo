@@ -835,9 +835,20 @@
 }
 
 @media (max-width: 760px) {
-  /* Prevent any element from overflowing the viewport width,
-     which would trigger iOS Safari to zoom out the entire page. */
+  html,
   .admin-body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  .admin-shell,
+  .admin-layout,
+  .admin-panel,
+  .admin-section,
+  .admin-category,
+  .admin-card-list,
+  .admin-item {
+    max-width: 100%;
     overflow-x: hidden;
   }
 
