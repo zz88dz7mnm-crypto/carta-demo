@@ -1,5 +1,6 @@
 (function () {
   var currentFile = window.location.pathname.split("/").pop() || "index.html";
+  var isAdmin = currentFile === "admin.html";
 
   var links = [
     {
@@ -29,6 +30,22 @@
     },
   ];
 
+  function makeLink(href, label, iconPath, action) {
+    var el = document.createElement(action ? "button" : "a");
+    if (href) el.href = href;
+    if (action) {
+      el.type = "button";
+      el.setAttribute("data-action", action);
+    }
+    el.className =
+      "nav-drawer__link" +
+      (currentFile === href ? " nav-drawer__link--active" : "");
+    el.innerHTML =
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' + iconPath + "</svg>" + label;
+    el.addEventListener("click", close);
+    return el;
+  }
+
   function buildDrawer() {
     var overlay = document.createElement("div");
     overlay.className = "nav-overlay";
@@ -38,6 +55,7 @@
     drawer.className = "nav-drawer";
     drawer.setAttribute("aria-label", "Menú de navegación");
 
+    // Header
     var head = document.createElement("div");
     head.className = "nav-drawer__head";
     head.innerHTML =
@@ -45,48 +63,89 @@
       "<strong>Levels Bar</strong>";
     drawer.appendChild(head);
 
+    // Carta links
     var section = document.createElement("div");
     section.className = "nav-drawer__section";
-
-    var label = document.createElement("p");
-    label.className = "nav-drawer__label";
-    label.textContent = "Carta";
-    section.appendChild(label);
+    var cartaLabel = document.createElement("p");
+    cartaLabel.className = "nav-drawer__label";
+    cartaLabel.textContent = "Carta";
+    section.appendChild(cartaLabel);
 
     links.forEach(function (item) {
-      var a = document.createElement("a");
-      a.href = item.href;
-      a.className =
-        "nav-drawer__link" +
-        (currentFile === item.href ? " nav-drawer__link--active" : "");
-      a.innerHTML =
-        '<svg viewBox="0 0 24 24" aria-hidden="true">' +
-        item.icon +
-        "</svg>" +
-        item.label;
-      a.addEventListener("click", close);
-      section.appendChild(a);
+      section.appendChild(makeLink(item.href, item.label, item.icon, null));
     });
 
     drawer.appendChild(section);
 
-    var footer = document.createElement("div");
-    footer.className = "nav-drawer__footer";
-    footer.innerHTML =
-      '<a href="https://wa.me/5493511234567?text=Hola%2C%20quiero%20hacer%20una%20reserva" target="_blank" rel="noopener noreferrer">' +
-      '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Z"/></svg>' +
-      "Reservar por WhatsApp" +
-      "</a>";
-    drawer.appendChild(footer);
+    // Admin section: Configuración + Cerrar sesión (solo en admin.html, cuando el app esté visible)
+    if (isAdmin) {
+      var adminSection = document.createElement("div");
+      adminSection.className = "nav-drawer__section";
+      adminSection.id = "nav-drawer-admin-section";
+      adminSection.hidden = true;
 
+      var divider = document.createElement("div");
+      divider.className = "nav-drawer__divider";
+      adminSection.appendChild(divider);
+
+      var adminLabel = document.createElement("p");
+      adminLabel.className = "nav-drawer__label";
+      adminLabel.textContent = "Admin";
+      adminSection.appendChild(adminLabel);
+
+      adminSection.appendChild(
+        makeLink(
+          null,
+          "Configuración",
+          '<path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" fill="none" stroke="currentColor" stroke-width="2"/>',
+          "open-settings"
+        )
+      );
+
+      adminSection.appendChild(
+        makeLink(
+          null,
+          "Cerrar sesión",
+          '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline points="16 17 21 12 16 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+          "logout"
+        )
+      );
+
+      drawer.appendChild(adminSection);
+
+      // Show admin section only when the admin app panel is visible
+      var observer = new MutationObserver(function () {
+        var app = document.getElementById("admin-app");
+        if (app) adminSection.hidden = app.hidden;
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        var app = document.getElementById("admin-app");
+        if (app) {
+          adminSection.hidden = app.hidden;
+          observer.observe(app, { attributes: true, attributeFilter: ["hidden"] });
+        }
+      });
+    }
+
+    // Footer WhatsApp (solo en páginas de carta, no en admin)
+    if (!isAdmin) {
+      var footer = document.createElement("div");
+      footer.className = "nav-drawer__footer";
+      footer.innerHTML =
+        '<a href="https://wa.me/5493511234567?text=Hola%2C%20quiero%20hacer%20una%20reserva" target="_blank" rel="noopener noreferrer">' +
+        '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.45 9.9-9.91C21.96 6.45 17.5 2 12.04 2Z"/></svg>' +
+        "Reservar por WhatsApp" +
+        "</a>";
+      drawer.appendChild(footer);
+    }
+
+    // Toggle button
     var toggle = document.createElement("button");
     toggle.className = "nav-toggle";
     toggle.setAttribute("aria-label", "Abrir menú");
     toggle.setAttribute("aria-expanded", "false");
     toggle.innerHTML =
-      '<span class="nav-toggle__icon">' +
-      "<span></span><span></span><span></span>" +
-      "</span>";
+      '<span class="nav-toggle__icon"><span></span><span></span><span></span></span>';
     toggle.addEventListener("click", function () {
       document.body.classList.contains("nav-open") ? close() : open();
     });
