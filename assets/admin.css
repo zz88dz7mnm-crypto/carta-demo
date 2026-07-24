@@ -1034,6 +1034,14 @@
     font-size: 1rem;
   }
 
+  .admin-field textarea {
+    field-sizing: content;
+    min-height: 6rem;
+    max-height: 16rem;
+    padding: 0.95rem 1rem;
+    line-height: 1.55;
+  }
+
   .admin-search__result {
     grid-template-columns: 1fr;
   }
